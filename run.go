@@ -9,22 +9,22 @@ import (
 // Main function contians Zen and Lisa struct got from DB model. Zen and lisa has the same database layouts.
 func main() {
 	fmt.Print("Starting ...")
-	LisaDbInfo= db.Data{
-		"mysql"
-		"root"
-		"trythisPASS"
-		"Lisa"
+	LisaDbInfo := db.Data{
+		"mysql",
+		"root",
+		"trythisPASS",
+		"Lisa",
 	}
 
-	ZenDbInfo:= db.Data{
-		"mysql"
-		"root"
-		"trythisPASS"
-		"Zen"
+	ZenDbInfo := db.Data{
+		"mysql",
+		"root",
+		"trythisPASS",
+		"Zen",
 	}
 
-	Lisa := db.DbSchema{}
-	Zen := db.DbSchema{}
+	// Lisa := db.Schema{}
+	// Zen := db.Schema{}
 
 	zenDb, zenDbErr := ZenDbInfo.Connect()
 	lisaDb, lisaDbErr := LisaDbInfo.Connect()

@@ -17,7 +17,6 @@ func GetData(openedDB *sql.DB, userSchema []Schema) error {
 				return nil
 			}
 			return err
-
 		}
 	}
 	return err
