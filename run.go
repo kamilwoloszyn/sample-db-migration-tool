@@ -1,6 +1,7 @@
 package main
 
 import (
+	"errors"
 	"fmt"
 
 	"github.com/kamilwoloszyn/sample-db-migration-tool/api/db"
@@ -31,10 +32,10 @@ func main() {
 			if mergeErr := db.Merge(Lisa, zenDb); err == nil {
 				fmt.Println("Done!")
 			} else {
-				fmt.Printf("Found errors during merge: %s", string(mergeErr))
+				fmt.Printf("Found errors during merge: %s", errors.Unwrap(mergeErr))
 			}
 		} else {
-			fmt.Printf("Found errors during fetching data: %s", string(err))
+			fmt.Printf("Found errors during fetching data: %s", errors.Unwrap(err))
 		}
 
 	} else {
