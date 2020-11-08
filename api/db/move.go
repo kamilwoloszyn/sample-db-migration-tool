@@ -22,6 +22,6 @@ func Merge(fromData []Schema, to *sql.DB) error {
 	} else {
 		return err
 	}
-	return errors.New("Please contact with technical support. Undefinied behavior occured.")
+	return errors.New("please contact with technical support, undefinied behavior occured")
 
 }
