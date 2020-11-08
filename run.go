@@ -37,12 +37,14 @@ func main() {
 			fmt.Printf("Found errors during fetching data: %s", string(err))
 		}
 
-		defer zenDb.Close()
-		defer lisaDb.Close()
-
 	} else {
 		fmt.Printf(" Got state \n Lisa db: %s \n Zen db: %s", lisaDbErr, zenDbErr)
-		panic("Cannot connect to database!")
+	}
+	if zenDb != nil {
+		defer zenDb.Close()
+	}
+	if lisaDb != nil {
+		defer lisaDb.Close()
 	}
 
 }
