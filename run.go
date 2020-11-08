@@ -6,7 +6,7 @@ import (
 	"github.com/kamilwoloszyn/sample-db-migration-tool/api/db"
 )
 
-// Main function contians Zen and Lisa struct got from DB model. Zen and lisa has the same database layouts.
+// Main function contians connection information about Lisa and Zen. Zen and lisa has the same database layouts.
 func main() {
 	fmt.Print("Starting ...")
 	LisaDbInfo := db.Data{
