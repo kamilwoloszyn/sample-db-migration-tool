@@ -23,13 +23,20 @@ func main() {
 		"Zen",
 	}
 
-	// Lisa := db.Schema{}
-	// Zen := db.Schema{}
-
 	zenDb, zenDbErr := ZenDbInfo.Connect()
 	lisaDb, lisaDbErr := LisaDbInfo.Connect()
 
 	if zenDbErr == nil && lisaDbErr == nil {
+		if Lisa, err := db.GetData(lisaDb); err == nil {
+			if mergeErr := db.Merge(Lisa, zenDb); err == nil {
+				fmt.Println("Done!")
+			} else {
+				fmt.Printf("Found errors during merge: %s", string(mergeErr))
+			}
+		} else {
+			fmt.Printf("Found errors during fetching data: %s", string(err))
+		}
+
 		defer zenDb.Close()
 		defer lisaDb.Close()
 

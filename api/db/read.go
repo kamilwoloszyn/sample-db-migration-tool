@@ -4,20 +4,19 @@ import (
 	"database/sql"
 )
 
-type DataReader interface {
-	GetData()
-}
-
-func GetData(openedDB *sql.DB, userSchema []Schema) error {
+func GetData(openedDB *sql.DB) ([]Schema, error) {
 	rows, err := openedDB.Query("select * from customers")
+	var userSchema []Schema
 	if err == nil {
 		var i int
 		for rows.Next() {
-			if err := rows.Scan(userSchema[i].CustomerNumber, userSchema[i].CustomerName, userSchema[i].ContactLastName, userSchema[i].ContactFirstName, userSchema[i].Phone, userSchema[i].AddressLine1, userSchema[i].AddressLine2, userSchema[i].City, userSchema[i].State, userSchema[i].PostalCode, userSchema[i].Country, userSchema[i].SalesRepEmployeeNumber, userSchema[i].CreditLimit); err == nil {
-				return nil
+			if err := rows.Scan(&userSchema[i].CustomerNumber, &userSchema[i].CustomerName, &userSchema[i].ContactLastName, &userSchema[i].ContactFirstName, &userSchema[i].Phone, &userSchema[i].AddressLine1, &userSchema[i].AddressLine2, &userSchema[i].City, &userSchema[i].State, &userSchema[i].PostalCode, &userSchema[i].Country, &userSchema[i].SalesRepEmployeeNumber, &userSchema[i].CreditLimit); err == nil {
+				i++
+			} else {
+				return userSchema, err
 			}
-			return err
+
 		}
 	}
-	return err
+	return userSchema, nil
 }
