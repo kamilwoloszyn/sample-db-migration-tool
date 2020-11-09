@@ -6,8 +6,8 @@ import (
 
 func GetData(openedDB *sql.DB) ([]Schema, error) {
 	rows, err := openedDB.Query("select * from customers")
-	var userSchema []Schema
 	if err == nil {
+		var userSchema []Schema
 		var i int
 		for rows.Next() {
 			if err := rows.Scan(&userSchema[i].CustomerNumber, &userSchema[i].CustomerName, &userSchema[i].ContactLastName, &userSchema[i].ContactFirstName, &userSchema[i].Phone, &userSchema[i].AddressLine1, &userSchema[i].AddressLine2, &userSchema[i].City, &userSchema[i].State, &userSchema[i].PostalCode, &userSchema[i].Country, &userSchema[i].SalesRepEmployeeNumber, &userSchema[i].CreditLimit); err == nil {
@@ -18,5 +18,7 @@ func GetData(openedDB *sql.DB) ([]Schema, error) {
 
 		}
 	}
-	return userSchema, nil
+
+	return nil, err
+
 }
