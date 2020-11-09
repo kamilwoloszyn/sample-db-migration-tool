@@ -12,11 +12,11 @@ import (
 // It returns lisaDb no matter if error occured. Please check always
 // if error is equal nil.
 func (d Data) Connect() (db *sql.DB, err error) {
-	lisaDb, lisaErr := sql.Open(d.Driver, d.ToString())
-	if lisaErr != nil {
-		return lisaDb, lisaErr
+	userDb, userErr := sql.Open(d.Driver, d.ToString())
+	if userErr != nil {
+		return nil, userErr
 	}
-	return lisaDb, nil
+	return userDb, nil
 }
 
 // ToString () returns a string in connection format. See above.
