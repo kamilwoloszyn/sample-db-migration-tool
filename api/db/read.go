@@ -12,17 +12,18 @@ func GetData(openedDB *sql.DB) ([]Schema, error) {
 			var userSchema []Schema = make([]Schema, size+1)
 			var i int
 			for rows.Next() {
-				if err := rows.Scan(&userSchema[i].CustomerNumber, &userSchema[i].CustomerName, &userSchema[i].ContactLastName, &userSchema[i].ContactFirstName, &userSchema[i].Phone, &userSchema[i].AddressLine1, &userSchema[i].AddressLine2, &userSchema[i].City, &userSchema[i].State, &userSchema[i].PostalCode, &userSchema[i].Country, &userSchema[i].SalesRepEmployeeNumber, &userSchema[i].CreditLimit); err == nil {
-					i++
-				} else {
-					return userSchema, err
+				scanErr := rows.Scan(&userSchema[i].CustomerNumber, &userSchema[i].CustomerName, &userSchema[i].ContactLastName, &userSchema[i].ContactFirstName, &userSchema[i].Phone, &userSchema[i].AddressLine1, &userSchema[i].AddressLine2, &userSchema[i].City, &userSchema[i].State, &userSchema[i].PostalCode, &userSchema[i].Country, &userSchema[i].SalesRepEmployeeNumber, &userSchema[i].CreditLimit)
+				if scanErr != nil {
+					if errPing := openedDB.Ping(); errPing != nil {
+						return userSchema, errPing
+					}
 				}
-
+				i++
 			}
+			return userSchema, nil
 		} else {
 			return nil, errQuery
 		}
-
 	}
 
 	return nil, errCount
